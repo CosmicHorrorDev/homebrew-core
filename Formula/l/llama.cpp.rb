@@ -33,17 +33,18 @@ class LlamaCpp < Formula
   def install
     args = %W[
       -DBUILD_SHARED_LIBS=ON
-      -DLLAMA_LTO=ON
-      -DLLAMA_CCACHE=OFF
-      -DLLAMA_ALL_WARNINGS=OFF
-      -DLLAMA_NATIVE=#{build.bottle? ? "OFF" : "ON"}
-      -DLLAMA_ACCELLERATE=#{OS.mac? ? "ON" : "OFF"}
-      -DLLAMA_BLAS=#{OS.linux? ? "ON" : "OFF"}
-      -DLLAMA_BLAS_VENDOR=OpenBLAS
-      -DLLAMA_METAL=#{OS.mac? ? "ON" : "OFF"}
-      -DLLAMA_METAL_EMBED_LIBRARY=ON
-      -DLLAMA_CURL=ON
       -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DGGML_ACCELLERATE=#{OS.mac? ? "ON" : "OFF"}
+      -DGGML_ALL_WARNINGS=OFF
+      -DGGML_BLAS=ON
+      -DGGML_BLAS_VENDOR=#{OS.mac? ? "Apple" : "OpenBLAS"}
+      -DGGML_CCACHE=OFF
+      -DGGML_LTO=ON
+      -DGGML_METAL=#{OS.mac? ? "ON" : "OFF"}
+      -DGGML_METAL_EMBED_LIBRARY=#{OS.mac? ? "ON" : "OFF"}
+      -DGGML_NATIVE=#{build.bottle? ? "OFF" : "ON"}
+      -DLLAMA_ALL_WARNINGS=OFF
+      -DLLAMA_CURL=ON
     ]
     args << "-DLLAMA_METAL_MACOSX_VERSION_MIN=#{MacOS.version}" if OS.mac?
 
